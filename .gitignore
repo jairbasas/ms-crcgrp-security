@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Security/FileContentIndex
+/Security.Api/obj
+/Security.Application/obj
+/Security.Repository/obj
