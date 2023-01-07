@@ -25,7 +25,7 @@ namespace Security.Repository.Repositories
                 {
                     var parameters = new DynamicParameters();
 
-                    parameters.Add("@poi_user_id", usersProfile.userId, DbType.Int32, ParameterDirection.InputOutput);
+                    parameters.Add("@poi_user_id", usersProfile.userId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@pii_profile_id", usersProfile.profileId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@pii_register_user_id", usersProfile.registerUserId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@piv_register_user_fullname", usersProfile.registerUserFullname, DbType.String, ParameterDirection.Input);
