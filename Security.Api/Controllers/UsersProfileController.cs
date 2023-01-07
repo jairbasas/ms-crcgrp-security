@@ -11,7 +11,7 @@ using System.Net;
 namespace Security.Api.Controllers
 {
     [Authorize]
-    [Route("users-profiles")]
+    [Route("security/users-profiles")]
     [ApiController]
     public class UsersProfileController : ControllerBase
     {

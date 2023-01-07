@@ -6,3 +6,11 @@
 /Security.Api/obj
 /Security.Application/obj
 /Security.Repository/obj
+/Security.Api/bin/Debug/net6.0
+/Security.Application/bin/Debug/net6.0
+/Security.Domain/bin/Debug/net6.0
+/Security.Repository/bin/Debug/net6.0
+/Security.Services/bin/Debug/net6.0
+/.vs/Security/DesignTimeBuild
+/.vs/Security/config
+/.vs/Security/v17

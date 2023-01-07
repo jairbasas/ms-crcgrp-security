@@ -7,6 +7,7 @@ namespace Security.Application.Queries.ViewModels
         public string userName { get; set; }
         public string email { get; set; }
         public int state { get; set; }
+        public int profileId { get; set; }
         public IEnumerable<ProfileToken> profile { get; set; }
         public IEnumerable<TokenViewModel> tokenUser { get; set; }
 

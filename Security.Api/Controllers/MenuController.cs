@@ -11,7 +11,7 @@ using System.Net;
 namespace Security.Api.Controllers
 {
     [Authorize]
-    [Route("menus")]
+    [Route("security/menus")]
     [ApiController]
     public class MenuController : ControllerBase
     {

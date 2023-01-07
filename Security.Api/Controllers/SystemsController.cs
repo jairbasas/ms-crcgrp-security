@@ -11,7 +11,7 @@ using System.Net;
 namespace Security.Api.Controllers
 {
     [Authorize]
-    [Route("systems")]
+    [Route("security/systems")]
     [ApiController]
     public class SystemsController : ControllerBase
     {

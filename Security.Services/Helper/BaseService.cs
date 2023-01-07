@@ -9,17 +9,17 @@ namespace Security.Services.Helper
 
         public BaseService(HttpClient httpClient) => _httpClient = httpClient;
 
-        public async Task<IEnumerable<T>> CallServiceList<T>(string url)
+        public async Task<T> CallServiceList<T>(string url)
         {
             var uri = $"{_httpClient.BaseAddress.AbsoluteUri}{url}";
             var result = await _httpClient.GetAsync(uri);
             if (result.IsSuccessStatusCode)
             {
                 var json = await result.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+                return JsonConvert.DeserializeObject<T>(json);
             }
             else
-                return new List<T>();
+                return default(T);
         }
 
         public async Task<T> CallServiceEntity<T>(string url)

@@ -16,5 +16,7 @@ namespace Security.Application.Queries.ViewModels
         public string email { get; set; }
         public string tokenJwt { get; set; }
         public string refreshToken { get; set; }
+        public int profileId { get; set; }
+        public int companyId { get; set; }
     }
 }

@@ -5,6 +5,8 @@ using Security.Api.Infrastructure.Delegates;
 using Security.Api.Infrastructure.Extensions;
 using Security.Api.Middlewares;
 using Security.Application;
+using Security.Services.Services.Implementations;
+using Security.Services.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -18,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-    //builder.Services.AddHttpClient<IExternalService, ExternalService>(s => s.BaseAddress = new Uri(builder.Configuration["MsExternalService"])).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
+    builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(s => s.BaseAddress = new Uri(builder.Configuration["MsEmployees"])).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
     builder.Services.AddControllers();
 };

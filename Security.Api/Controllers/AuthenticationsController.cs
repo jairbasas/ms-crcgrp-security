@@ -8,7 +8,7 @@ using System.Net;
 
 namespace Security.Api.Controllers
 {
-    [Route("authentications")]
+    [Route("security/authentications")]
     [ApiController]
     public class AuthenticationsController : ControllerBase
     {

@@ -11,7 +11,7 @@ using System.Net;
 namespace Security.Api.Controllers
 {
     [Authorize]
-    [Route("parameters")]
+    [Route("security/parameters")]
     [ApiController]
     public class ParameterController : ControllerBase
     {

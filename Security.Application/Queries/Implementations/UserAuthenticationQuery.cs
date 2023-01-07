@@ -6,6 +6,8 @@ using Security.Application.Queries.Mappers;
 using Security.Application.Queries.ViewModels;
 using Security.Application.Wrappers;
 using Security.Domain.Exceptions;
+using Security.Services.Services.Interfaces;
+using Security.Services.Services.Response;
 using System.Data;
 
 namespace Security.Application.Queries.Implementations
@@ -17,13 +19,15 @@ namespace Security.Application.Queries.Implementations
         private readonly IGenericQuery _iGenericQuery;
         private readonly IValuesSettings _iValuesSettings;
         private readonly IUsersProfileQuery _iUsersProfileQuery;
-        public UserAuthenticationQuery(IGenericQuery igenericQuery, IUserAuthenticationMapper iuserAuthenticationMapper, ITokenQuery itokenQuery, IValuesSettings iValuesSettings, IUsersProfileQuery iUsersProfileQuery)
+        private readonly IEmployeeService _iEmployeeService;
+        public UserAuthenticationQuery(IGenericQuery igenericQuery, IUserAuthenticationMapper iuserAuthenticationMapper, ITokenQuery itokenQuery, IValuesSettings iValuesSettings, IUsersProfileQuery iUsersProfileQuery, IEmployeeService iEmployeeService)
         {
             this._iGenericQuery = igenericQuery;
             this._iUserAuthenticationMapper = iuserAuthenticationMapper;
             this._iTokenQuery = itokenQuery;
             this._iValuesSettings = iValuesSettings;
             _iUsersProfileQuery = iUsersProfileQuery;
+            _iEmployeeService = iEmployeeService;
         }
 
         public async Task<IEnumerable<UserAuthenticationViewModel>> Search(UserAuthenticationRequest userAuthenticationRequest)
@@ -50,11 +54,20 @@ namespace Security.Application.Queries.Implementations
             if (userAuthentication.Any())
             {
 
+                var companyUsersFound = await _iEmployeeService.GetCompanyUsersByUserId<CompanyUsersResponse>(userAuthentication.FirstOrDefault().userId);
+
+                if (!companyUsersFound.succeeded) throw new SecurityBaseException("Ocurrió un error inesperado, vuelva a intentarlo en unos minutos");
+
+                int companyId = 0;
+                if (companyUsersFound.data.Any()) companyId = companyUsersFound.data.FirstOrDefault().companyId.Value;
+
                 var tokenGenerated = await this._iTokenQuery.GenerateToken(new TokenRequest()
                 {
                     userName = userAuthentication.FirstOrDefault().userName,
                     email = userAuthentication.FirstOrDefault().email,
-                    userId = userAuthentication.FirstOrDefault().userId
+                    userId = userAuthentication.FirstOrDefault().userId,
+                    profileId = userAuthentication.FirstOrDefault().profileId,
+                    companyId = companyId
                 });
 
                 if (tokenGenerated != null)

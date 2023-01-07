@@ -16,6 +16,7 @@ namespace Security.Application.Queries.Mappers
             o.userName = r.user_name + ' ' + r.father_last_name + ' ' + r.mother_last_name;
             o.email = r.email;
             o.state = r.state;
+            o.profileId = r.profile_id;
 
             return o;
         }

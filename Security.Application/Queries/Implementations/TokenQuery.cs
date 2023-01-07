@@ -40,7 +40,9 @@ namespace Security.Application.Queries.Implementations
             {
                 new System.Security.Claims.Claim(JwtRegisteredClaimNames.Sub, tokenRequest.userName),
                 new System.Security.Claims.Claim(JwtRegisteredClaimNames.Email, tokenRequest.email),
-                new System.Security.Claims.Claim("uid", tokenRequest.userId.ToString())
+                new System.Security.Claims.Claim("uid", tokenRequest.userId.ToString()),
+                new System.Security.Claims.Claim("profile", tokenRequest.profileId.ToString()),
+                new System.Security.Claims.Claim("company", tokenRequest.companyId.ToString())
             };
 
             var keySecret = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._key));
@@ -67,6 +69,17 @@ namespace Security.Application.Queries.Implementations
             return await Task.FromResult(tokenViewModel);
         }
 
+        public async Task<int> GetCompanyToken(string token)
+        {
+            int companyId = 0;
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+
+            companyId = int.Parse(jwtSecurityToken.Claims.First(x => x.Type == "company").Value);
+            return await Task.FromResult(companyId);
+        }
+
         public async Task<IEnumerable<TokenViewModel>> RefreshToken(TokenRequest tokenRequest)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -91,8 +104,10 @@ namespace Security.Application.Queries.Implementations
                 resultFound += tokenClaims.Where(x => x.Value == tokenRequest.userName).ToList().Count();
                 resultFound += tokenClaims.Where(x => x.Value == tokenRequest.email).ToList().Count();
                 resultFound += tokenClaims.Where(x => x.Value == tokenRequest.userId.ToString()).ToList().Count();
+                resultFound += tokenClaims.Where(x => x.Value == tokenRequest.profileId.ToString()).ToList().Count();
+                resultFound += tokenClaims.Where(x => x.Value == tokenRequest.companyId.ToString()).ToList().Count();
 
-                if (resultFound == 3)
+                if (resultFound == 5)
                     return await this.GenerateToken(tokenRequest);
                 else
                     return new List<TokenViewModel>();

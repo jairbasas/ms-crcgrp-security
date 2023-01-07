@@ -7,5 +7,6 @@ namespace Security.Application.Queries.Interfaces
         Task<IEnumerable<TokenViewModel>> GenerateToken(TokenRequest tokenRequest);
         Task<string> GenerateRefreshToken();
         Task<IEnumerable<TokenViewModel>> RefreshToken(TokenRequest tokenRequest);
+        Task<int> GetCompanyToken(string token);
     }
 }
