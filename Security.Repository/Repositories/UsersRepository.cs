@@ -15,6 +15,55 @@ namespace Security.Repository.Repositories
             _connectionString = connectionString;
         }
 
+        public async Task<int> ChangePassword(Users users)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                try
+                {
+                    var parameters = new DynamicParameters();
+
+                    parameters.Add("@pi_user_id", users.userId, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@piv_password", users.password, DbType.String, ParameterDirection.Input);
+                    parameters.Add("@pii_reset_password", users.resetPassword, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@pii_update_user_id", users.updateUserId, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@piv_update_user_fullname", users.updateUserFullname, DbType.String, ParameterDirection.Input);
+                    parameters.Add("@pid_update_datetime", users.updateDatetime, DbType.DateTime, ParameterDirection.Input);
+
+                    return await connection.ExecuteAsync(@"SECURITY.USERS_change_password", parameters, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception ex)
+                {
+                    throw new SecurityBaseException(ex.Message);
+                }
+            }
+        }
+
+        public async Task<int> ChangeState(Users users)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                try
+                {
+                    var parameters = new DynamicParameters();
+
+                    parameters.Add("@pi_user_id", users.userId, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@pii_state", users.state, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@pii_update_user_id", users.updateUserId, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@piv_update_user_fullname", users.updateUserFullname, DbType.String, ParameterDirection.Input);
+                    parameters.Add("@pid_update_datetime", users.updateDatetime, DbType.DateTime, ParameterDirection.Input);
+
+                    return await connection.ExecuteAsync(@"SECURITY.USERS_change_state", parameters, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception ex)
+                {
+                    throw new SecurityBaseException(ex.Message);
+                }
+            }
+        }
+
         public async Task<int> Register(Users users)
         {
             using (var connection = new SqlConnection(_connectionString))

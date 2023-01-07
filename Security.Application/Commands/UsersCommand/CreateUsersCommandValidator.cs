@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Validators;
 
 namespace Security.Application.Commands.UsersCommand
 {

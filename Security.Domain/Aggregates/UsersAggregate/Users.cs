@@ -44,5 +44,24 @@ namespace Security.Domain.Aggregates.UsersAggregate
             this.updateUserFullname = updateUserFullname;
             this.updateDatetime = updateDatetime;
         }
+
+        public Users(int userId, string password, int? resetPassword, int? updateUserId, string updateUserFullname, DateTime? updateDatetime)
+        {
+            this.userId = userId;
+            this.password = password;
+            this.resetPassword = resetPassword;
+            this.updateUserId = updateUserId;
+            this.updateUserFullname= updateUserFullname;
+            this.updateDatetime= updateDatetime;
+        }
+
+        public Users(int userId, int? state, int? updateUserId, string updateUserFullname, DateTime? updateDatetime)
+        {
+            this.userId = userId;
+            this.state = state;
+            this.updateUserId = updateUserId;
+            this.updateUserFullname = updateUserFullname;
+            this.updateDatetime = updateDatetime;
+        }
     }
 }

@@ -7,7 +7,6 @@ using Security.Application.Queries.ViewModels.Base;
 using Security.Application.Queries.ViewModels;
 using Security.Application.Wrappers;
 using System.Net;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Net.Http.Headers;
 
 namespace Security.Api.Controllers
@@ -82,14 +81,32 @@ namespace Security.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPut("change-password")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> ChangePassword(ChangeUserPasswordCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
+        [HttpPut("change-state")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> ChangeState(ChangeUserStateCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
         #region Methods
 
         private async Task<int> GetCompanyId() 
         {
-            int companyId = 0;
-
             var accessToken = Request.Headers[HeaderNames.Authorization].ToString().Replace("Bearer ", "");
-            companyId = await _iTokenQuery.GetCompanyToken(accessToken);
+            int companyId = await _iTokenQuery.GetCompanyToken(accessToken);
             return await Task.FromResult(companyId);
         }
 
