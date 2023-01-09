@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddHttpClient<IEmployeeService, EmployeeService>(s => s.BaseAddress = new Uri(builder.Configuration["MsEmployees"])).AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
+    builder.Services.AddConfigureCors();
     builder.Services.AddControllers();
 };
 
@@ -42,6 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerDoc(builder.Configuration);
 }
 
+app.UseCors("corsApp");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ErrorHandlerMiddleware>();
