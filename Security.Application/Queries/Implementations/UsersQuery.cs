@@ -50,7 +50,9 @@ namespace Security.Application.Queries.Implementations
         {
             var parameters = new Dictionary<string, object>
             {
-                {"user_id", request.userId ?? 0}
+                {"user_id", request.userId ?? 0},
+                {"user_name", request.userName ?? string.Empty},
+                {"state", request.state ?? 0}
             };
 
             var result = await _iGenericQuery.FindAll(@"SECURITY.USERS_find_all", ConvertTo.Xml(parameters), request.pagination);

@@ -23,6 +23,7 @@ namespace Security.Application.Queries.Mappers
             //o.password = r.password;
             o.resetPassword = r.reset_password;
             o.state = r.state;
+            o.stateName = r.state_name;
             o.registerUserId = r.register_user_id;
             o.registerUserFullname = r.register_user_fullname;
             o.registerDatetime = r.register_datetime;

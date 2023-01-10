@@ -30,5 +30,11 @@ namespace Security.Domain.Aggregates.ProfileMenuAggregate
             this.updateDatetime = updateDatetime;
             this.menuIds = menuIds;
         }
+
+        public ProfileMenu(int profileId, int menuId)
+        {
+            this.profileId = profileId;
+            this.menuId = menuId;
+        }
     }
 }

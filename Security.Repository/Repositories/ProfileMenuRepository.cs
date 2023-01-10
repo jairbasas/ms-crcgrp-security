@@ -82,6 +82,27 @@ namespace Security.Repository.Repositories
             return await connection.ExecuteAsync(@"SECURITY.PROFILE_MENU_delete_by_profile", parameters, transaction, commandType: CommandType.StoredProcedure);
         }
 
+        public async Task<int> Delete(ProfileMenu profileMenu)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                try
+                {
+                    var parameters = new DynamicParameters();
+
+                    parameters.Add("@pii_profile_id", profileMenu.profileId, DbType.Int32, ParameterDirection.InputOutput);
+                    parameters.Add("@pii_menu_id", profileMenu.menuId, DbType.Int32, ParameterDirection.Input);
+
+                    return await connection.ExecuteAsync(@"SECURITY.PROFILE_MENU_delete", parameters, commandType: CommandType.StoredProcedure);
+                }
+                catch (Exception ex)
+                {
+                    throw new SecurityBaseException(ex.Message);
+                }
+            }
+        }
+
         #region Methods
 
         public DynamicParameters getParameters(ProfileMenu profileMenu) 

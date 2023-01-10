@@ -4,11 +4,13 @@ using Security.Application.Queries.Generics;
 using Security.Application.Queries.Interfaces;
 using Security.Application.Queries.Mappers;
 using Security.Application.Queries.ViewModels;
+using Security.Application.Utility;
 using Security.Application.Wrappers;
 using Security.Domain.Exceptions;
 using Security.Services.Services.Interfaces;
 using Security.Services.Services.Response;
 using System.Data;
+using System.Text;
 
 namespace Security.Application.Queries.Implementations
 {
@@ -34,10 +36,10 @@ namespace Security.Application.Queries.Implementations
         {
             var dynamicParameters = new DynamicParameters();
 
-            //var keybytes = Encoding.UTF8.GetBytes(_iValuesSettings.GetEncryptKey());
-            //var iv = Encoding.UTF8.GetBytes(_iValuesSettings.GetEncryptIv());
+            var keybytes = Encoding.UTF8.GetBytes(_iValuesSettings.GetEncryptKey());
+            var iv = Encoding.UTF8.GetBytes(_iValuesSettings.GetEncryptIv());
 
-            //userAuthenticationRequest.password = ConvertTo.DecryptStringFromBytes(Convert.FromBase64String(userAuthenticationRequest.password), keybytes, iv);
+            userAuthenticationRequest.password = ConvertTo.DecryptStringFromBytes(Convert.FromBase64String(userAuthenticationRequest.password), keybytes, iv);
 
             dynamicParameters.Add("pi_login", userAuthenticationRequest.login, DbType.String);
             dynamicParameters.Add("pi_password", userAuthenticationRequest.password, DbType.String);

@@ -32,7 +32,7 @@ builder.Services.AddApplicationLayer();
 
 // Add services to the container.
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-builder.Host.ConfigureContainer<ContainerBuilder>(b => b.RegisterModule(new ApplicationModule(builder.Configuration["ConnectionSting"], builder.Configuration["Jwt:Key"], builder.Configuration["Jwt:DurationInMinutes"], builder.Configuration["Jwt:Issuer"], builder.Configuration["TimeZone"], builder.Configuration["Jwt:Audience"])));
+builder.Host.ConfigureContainer<ContainerBuilder>(b => b.RegisterModule(new ApplicationModule(builder.Configuration["ConnectionSting"], builder.Configuration["Jwt:Key"], builder.Configuration["Jwt:DurationInMinutes"], builder.Configuration["Jwt:Issuer"], builder.Configuration["TimeZone"], builder.Configuration["Jwt:Audience"], builder.Configuration["EncryptKey"], builder.Configuration["EncryptIV"])));
 builder.Host.ConfigureContainer<ContainerBuilder>(b => b.RegisterModule(new MediatorModule()));
 
 var app = builder.Build();

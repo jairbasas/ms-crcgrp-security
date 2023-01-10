@@ -18,5 +18,6 @@ namespace Security.Application.Queries.ViewModels
     {
         public int? userId { get; set; }
         public int? profileId { get; set; }
+        public int? systemId { get; set; }
     }
 }

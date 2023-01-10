@@ -23,8 +23,10 @@ namespace Security.Api.Infrastructure.AutofacModules
         private readonly string _issuer;
         private readonly string _timeZone;
         private readonly string _audience;
+        private readonly string _encryptKey;
+        private readonly string _encryptIv;
 
-        public ApplicationModule(string defaultConnection, string key, string durationInMinute, string issuer, string timeZone, string audience)
+        public ApplicationModule(string defaultConnection, string key, string durationInMinute, string issuer, string timeZone, string audience, string encryptKey, string encryptIv)
         {
             this._defaultConnection = defaultConnection ?? throw new ArgumentNullException(nameof(defaultConnection));
             this._key = key ?? throw new ArgumentNullException(nameof(key));
@@ -32,6 +34,8 @@ namespace Security.Api.Infrastructure.AutofacModules
             this._issuer = issuer ?? throw new ArgumentNullException(nameof(issuer));
             this._timeZone = timeZone ?? throw new ArgumentNullException(nameof(timeZone));
             this._audience = audience ?? throw new ArgumentNullException(nameof(audience));
+            _encryptKey = encryptKey ?? throw new ArgumentNullException(nameof(encryptKey));
+            _encryptIv = encryptIv ?? throw new ArgumentNullException(nameof(encryptIv));
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -42,7 +46,7 @@ namespace Security.Api.Infrastructure.AutofacModules
                             .InstancePerLifetimeScope();
 
             #region ValuesSettings
-            builder.Register(r => new ValuesSettings(_timeZone))
+            builder.Register(r => new ValuesSettings(_timeZone, _encryptKey, _encryptIv))
                 .As<IValuesSettings>()
                 .InstancePerLifetimeScope();
             #endregion

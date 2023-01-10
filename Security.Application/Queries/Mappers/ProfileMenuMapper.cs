@@ -14,7 +14,9 @@ namespace Security.Application.Queries.Mappers
             ProfileMenuViewModel o = new ProfileMenuViewModel();
 
             o.profileId = r.profile_id;
+            o.profileName = r.profile_name;
             o.menuId = r.menu_id;
+            o.menuName= r.menu_name;
             o.registerUserId = r.register_user_id;
             o.registerUserFullname = r.register_user_fullname;
             o.registerDatetime = r.register_datetime;

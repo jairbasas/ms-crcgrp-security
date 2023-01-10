@@ -5,7 +5,9 @@ namespace Security.Application.Queries.ViewModels
     public class ProfileMenuViewModel
     {
         public int profileId { get; set; }
+        public string profileName { get; set; }
         public int menuId { get; set; }
+        public string menuName { get; set; }
         public int? registerUserId { get; set; }
         public string registerUserFullname { get; set; }
         public DateTime? registerDatetime { get; set; }

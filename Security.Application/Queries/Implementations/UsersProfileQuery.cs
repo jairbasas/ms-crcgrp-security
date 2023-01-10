@@ -36,7 +36,9 @@ namespace Security.Application.Queries.Implementations
         {
             var parameters = new Dictionary<string, object>
             {
-                {"user_id", request.userId ?? 0}
+                {"user_id", request.userId ?? 0},
+                {"profile_id", request.profileId ?? 0},
+                {"system_id", request.systemId ?? 0}
             };
 
             var result = await _iGenericQuery.Search(@"SECURITY.USERS_PROFILE_search", ConvertTo.Xml(parameters), request.pagination);

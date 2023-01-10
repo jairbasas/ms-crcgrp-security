@@ -63,9 +63,11 @@ namespace Security.Api.Infrastructure.Extensions
                     OnAuthenticationFailed = c =>
                     {
                         c.NoResult();
-                        c.Response.StatusCode = 500;
+                        c.Response.StatusCode = 401;
                         c.Response.ContentType = "text/plain";
-                        return c.Response.WriteAsync(c.Exception.Message.ToString());
+                        //return c.Response.WriteAsync(c.Exception.Message.ToString());
+                        var result = JsonConvert.SerializeObject(new Response<string>("Expiración de token"));
+                        return c.Response.WriteAsync(result);
                     },
                     OnChallenge = context =>
                     {

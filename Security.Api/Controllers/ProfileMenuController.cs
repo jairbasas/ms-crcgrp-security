@@ -77,5 +77,15 @@ namespace Security.Api.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> DeleteProfileMenu(DeleteProfileMenuCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
     }
 }

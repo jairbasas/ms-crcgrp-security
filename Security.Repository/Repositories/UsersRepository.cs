@@ -49,7 +49,7 @@ namespace Security.Repository.Repositories
                 {
                     var parameters = new DynamicParameters();
 
-                    parameters.Add("@pi_user_id", users.userId, DbType.Int32, ParameterDirection.Input);
+                    parameters.Add("@pii_user_id", users.userId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@pii_state", users.state, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@pii_update_user_id", users.updateUserId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@piv_update_user_fullname", users.updateUserFullname, DbType.String, ParameterDirection.Input);
