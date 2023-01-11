@@ -3,6 +3,8 @@ using Security.Domain.Aggregates.ProfileMenuAggregate;
 using Security.Domain.Exceptions;
 using System.Data.SqlClient;
 using System.Data;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 
 namespace Security.Repository.Repositories
 {
@@ -39,7 +41,7 @@ namespace Security.Repository.Repositories
             }
         }
 
-        public async Task<int> RegisterAsync(ProfileMenu profileMenu)
+        public async Task<int> RegisterAsync(IEnumerable<ProfileMenu> profileMenu)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -48,20 +50,13 @@ namespace Security.Repository.Repositories
                 {
                     try
                     {
-                        await DeleteByProfileAsync(profileMenu.profileId, connection, transaction);
+                        int profileId = profileMenu.FirstOrDefault().profileId;
+                        int result = await DeleteByProfileAsync(profileId, connection, transaction);
                         var parameters = new DynamicParameters();
-                        int result = 0;
+                        parameters.Add("@jsonData", JsonConvert.SerializeObject(profileMenu, new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd" }), DbType.String);
 
-                        if (profileMenu.menuIds.Length > 0)
-                        {
-                            for (int i = 0; i < profileMenu.menuIds.Length; i++)
-                            {
-                                profileMenu.menuId = profileMenu.menuIds[i];
-                                parameters = getParameters(profileMenu);
-                                result = await connection.ExecuteAsync(@"SECURITY.PROFILE_MENU_insert_update", parameters, transaction, commandType: CommandType.StoredProcedure);
-                            }
-                        }
-                        
+                        await connection.ExecuteAsync("SECURITY.PROFILE_MENU_insert_update_json", parameters, transaction, commandType: CommandType.StoredProcedure);
+
                         transaction.Commit();
                         return result;
                     }

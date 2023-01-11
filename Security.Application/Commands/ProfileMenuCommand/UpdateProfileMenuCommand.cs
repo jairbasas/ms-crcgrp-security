@@ -28,7 +28,7 @@ namespace Security.Application.Commands.ProfileMenuCommand
 
         public async Task<Response<int>> Handle(UpdateProfileMenuCommand request, CancellationToken cancellationToken)
         {
-            ProfileMenu profileMenu = new ProfileMenu(request.profileId, request.menuId, request.updateUserId, request.updateUserFullname, DateTime.Now.Peru(_iValuesSettings.GetTimeZone()), request.updateUserId, request.updateUserFullname, DateTime.Now.Peru(_iValuesSettings.GetTimeZone()), new int[0]);
+            ProfileMenu profileMenu = new ProfileMenu(request.profileId, request.menuId, request.updateUserId, request.updateUserFullname, DateTime.Now.Peru(_iValuesSettings.GetTimeZone()), request.updateUserId, request.updateUserFullname, DateTime.Now.Peru(_iValuesSettings.GetTimeZone()));
 
             var result = await _iProfileMenuRepository.Register(profileMenu);
 

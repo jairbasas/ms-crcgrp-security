@@ -7,6 +7,7 @@ namespace Security.Application.Queries.ViewModels
         public int profileId { get; set; }
         public string profileName { get; set; }
         public int menuId { get; set; }
+        public int? menuParentId { get; set; }
         public string menuName { get; set; }
         public int? registerUserId { get; set; }
         public string registerUserFullname { get; set; }

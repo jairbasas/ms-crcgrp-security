@@ -6,7 +6,6 @@ namespace Security.Domain.Aggregates.ProfileMenuAggregate
     {
         public int profileId { get; set; }
         public int menuId { get; set; }
-        public int[] menuIds { get; set; }
         public int? registerUserId { get; set; }
         public string registerUserFullname { get; set; }
         public DateTime? registerDatetime { get; set; }
@@ -18,7 +17,7 @@ namespace Security.Domain.Aggregates.ProfileMenuAggregate
         {
         }
 
-        public ProfileMenu(int profileId, int menuId, int? registerUserId, string registerUserFullname, DateTime? registerDatetime, int? updateUserId, string updateUserFullname, DateTime? updateDatetime, int[] menuIds)
+        public ProfileMenu(int profileId, int menuId, int? registerUserId, string registerUserFullname, DateTime? registerDatetime, int? updateUserId, string updateUserFullname, DateTime? updateDatetime)
         {
             this.profileId = profileId;
             this.menuId = menuId;
@@ -28,7 +27,6 @@ namespace Security.Domain.Aggregates.ProfileMenuAggregate
             this.updateUserId = updateUserId;
             this.updateUserFullname = updateUserFullname;
             this.updateDatetime = updateDatetime;
-            this.menuIds = menuIds;
         }
 
         public ProfileMenu(int profileId, int menuId)
